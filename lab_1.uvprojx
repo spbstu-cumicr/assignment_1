@@ -7,16 +7,16 @@
 
   <Targets>
     <Target>
-      <TargetName>Target 1</TargetName>
+      <TargetName>target_1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
-      <uAC6>0</uAC6>
+      <pCCUsed>6190000::V6.19::ARMCLANG</pCCUsed>
+      <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F407VGTx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.14.0</PackID>
+          <PackID>Keil.STM32F4xx_DFP.2.16.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IRAM2(0x10000000,0x00010000) IROM(0x08000000,0x00100000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\obj\</OutputDirectory>
-          <OutputName>test</OutputName>
+          <OutputName>lab_1</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -184,6 +184,9 @@
             <hadXRAM>0</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>2</RvdsVP>
+            <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -311,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>2</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -326,16 +329,16 @@
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>1</v6Lang>
-            <v6LangP>1</v6LangP>
+            <v6Lang>3</v6Lang>
+            <v6LangP>8</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>--c99</MiscControls>
-              <Define>USE_FULL_ASSERT, USE_STDPERIPH_DRIVER,  __FPU_PRESENT, __STDC_LIMIT_MACROS, USE_HSE, STM32F407xx, STM32F40_41xxx, HSE_VALUE=8000000</Define>
+              <MiscControls>-fno-exceptions -fno-threadsafe-statics -fdata-sections -ffunction-sections --system-header-prefix=./src/spl/inc --system-header-prefix=./src/cmsis --system-header-prefix=./src/mcu_support_package/inc -Wall -Wpedantic -Wextra -Wvla -Wshadow -Wmissing-format-attribute -Wuninitialized -Winit-self -Wdouble-promotion -Wstrict-aliasing -Wno-c++98-compat-pedantic -Wno-old-style-cast -Wno-deprecated-register -Wno-inconsistent-missing-override -Wno-empty-body -Wno-extra-semi-stmt -Wno-covered-switch-default -Wno-missing-noreturn -Wno-unreachable-code-return -Wno-macro-redefined -Wno-sign-conversion -Wno-implicit-int-conversion -Wno-declaration-after-statement -Wno-padded -Wno-cast-qual -Wno-missing-prototypes -Wno-unused-but-set-variable</MiscControls>
+              <Define>STM32F407xx, STM32F40_41xxx, USE_FULL_ASSERT, USE_STDPERIPH_DRIVER, USE_HSE, HSE_VALUE=8000000</Define>
               <Undefine></Undefine>
               <IncludePath>.\src\cmsis;.\src;.\src\mcu_support_package\inc;.\src\spl\inc;.\src\spl</IncludePath>
             </VariousControls>
@@ -350,7 +353,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -386,16 +389,6 @@
               <FileType>1</FileType>
               <FilePath>.\src\main\main.c</FilePath>
             </File>
-            <File>
-              <FileName>lab_1_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\main\lab_1_test.c</FilePath>
-            </File>
-            <File>
-              <FileName>lab_1_test.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\src\main\lab_1_test.lib</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -404,7 +397,7 @@
             <File>
               <FileName>system_stm32f4xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\mcu_support_package\system_stm32f4xx.c</FilePath>
+              <FilePath>.\src\mcu_support_package\src\system_stm32f4xx.c</FilePath>
             </File>
             <File>
               <FileName>startup_stm32f407xx.s</FileName>
@@ -433,6 +426,21 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>test</GroupName>
+          <Files>
+            <File>
+              <FileName>test.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\test\test.h</FilePath>
+            </File>
+            <File>
+              <FileName>test.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\src\test\test.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
   </Targets>
@@ -442,5 +450,14 @@
     <components/>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>lab_1</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>

@@ -1,0 +1,35 @@
+#! armclang -E -x
+; with that we can use C preprocessor 
+
+#define RAM_ORIGIN     (0x20000000)
+#define RAM_LENGHT     (128 * 1024)
+ 
+#define FLASH_ORIGIN   (0x8000000)
+#define FLASH_LENGTH   (1024 * 1024)
+ 
+; This scatter file places stack before .bss region, so on stack overflow
+; we get HardFault exception immediately
+ 
+LR_IROM1 FLASH_ORIGIN FLASH_LENGTH {    ; load region size_region
+  ER_IROM1 FLASH_ORIGIN FLASH_LENGTH {  ; load address = execution address
+    *.o (RESET, +First)
+    *(InRoot$$Sections)
+    
+    .ANY (+RO)
+  }
+ 
+  ; Stack region growing down
+  REGION_STACK RAM_ORIGIN {
+    *(STACK)
+  }
+ 
+  ; We have to define heap region, even if we don't actually use heap
+  REGION_HEAP ImageLimit(REGION_STACK) {
+    *(HEAP)
+  }
+ 
+  ; this will place .bss region above the stack and heap and allocate RAM that is left for it
+  RW_IRAM1 ImageLimit(REGION_HEAP) (RAM_LENGHT - ImageLength(REGION_STACK) - ImageLength(REGION_HEAP)) {  
+    *(+RW +ZI)
+  }
+}

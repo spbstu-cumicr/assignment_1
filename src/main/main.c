@@ -1,30 +1,33 @@
-#include "mcu_support_package/inc/stm32f4xx.h"
-#include "lab_1_test.h"
+#include "test/test.h"
 
 #include <stdint.h>
+#include <stdbool.h>
 
-// Фамилия
+// Фамилия (UTF-8)
 static const char *lastName = "Pankov";
 
 int main(void)
-{   
-    // Вариант задания
-    static uint8_t variant = 0;
+{
+    // Вариант
+    volatile uint8_t variant = 0;
     
     // Контрольная сумма
-    static uint32_t checksum = 0;
+    volatile uint32_t checksum = 0;
     
     // Структура со значениями частот
-    static RCC_ClocksTypeDef RCC_Clocks;
+    RCC_ClocksTypeDef RCC_Clocks;
     RCC_GetClocksFreq(&RCC_Clocks);	
     
-    // Инициализируем тестовую прошивку
-    variant = initTest(lastName);
+    // Инициализируем тестирующую прошивку
+    testInit();
     
-    while(1)
+    // Запрашиваем вариант
+    variant = testGetVariant(lastName);
+    
+    // Получаем контрольную сумму
+    while (true)
     {
-        // Считаем контрольную сумму
-        checksum = getChecksum();
+        checksum = testGetChecksum();
     }
     
     return 0;
@@ -42,7 +45,7 @@ void assert_failed(uint8_t *file, uint32_t line)
     (void)line;
     
     __disable_irq();
-    while(1)
+    while (true)
     {
          // это ассемблерная инструкция "отладчик, стой тут"
          // если вы попали сюда, значит вы ошиблись в параметрах вызова функции из SPL. 

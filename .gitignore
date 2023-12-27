@@ -1,12 +1,6 @@
-﻿/Debug
-/Listings
-/Objects
-/.settings/*
-/*.bak
-/*.dep
-/dummy.uvgui.*
+﻿/.settings
 /EventRecorderStub.scvd
-/Debug/
 /DebugConfig
 /lst
 /obj
+/*.uvguix.*
